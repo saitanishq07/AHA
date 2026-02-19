@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AHA Solar — Go Green Go Solar</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --sky: #e8f4fd;
+    --sky-mid: #cce8f8;
+    --sky-dark: #a8d4f0;
+    --blue: #1a7abf;
+    --blue-dark: #0f5a90;
+    --blue-deep: #0b3d63;
+    --yellow: #f5c400;
+    --yellow-light: #ffd740;
+    --yellow-pale: #fffae6;
+    --white: #ffffff;
+    --text: #1a2332;
+    --text-mid: #4a6080;
+    --text-light: #7a96b0;
+    --border: #daeaf6;
+    --section-alt: #f4faff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.96); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 64px; display: flex; align-items: center; justify-content: space-between; height: 68px; transition: box-shadow 0.3s; }
+  nav.scrolled { box-shadow: 0 4px 30px rgba(26,122,191,0.08); }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-sun { width: 36px; height: 36px; background: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; box-shadow: 0 0 0 6px rgba(245,196,0,0.15); }
+  .nav-wordmark { font-size: 1.25rem; font-weight: 800; color: var(--blue-dark); letter-spacing: -0.02em; }
+  .nav-wordmark span { color: var(--yellow); }
+  .nav-tagline { font-size: 0.68rem; font-weight: 500; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; border-left: 2px solid var(--border); padding-left: 10px; margin-left: 4px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-btn { background: var(--yellow) !important; color: var(--blue-deep) !important; font-weight: 700 !important; padding: 10px 22px; border-radius: 8px; transition: background 0.2s, transform 0.2s !important; white-space: nowrap !important; display: inline-block !important; line-height: 1.2 !important; }
+  .nav-btn:hover { background: var(--yellow-light) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 64px 80px; background: linear-gradient(160deg, #f0f8ff 0%, #e4f2fc 40%, #fff9e0 100%); position: relative; overflow: hidden; }
+  .hero-circle-1 { position: absolute; top: -120px; right: -120px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(245,196,0,0.12) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  .hero-circle-2 { position: absolute; bottom: -80px; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(26,122,191,0.07) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+  .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(26,122,191,0.08); border: 1px solid rgba(26,122,191,0.2); color: var(--blue); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 7px 14px; border-radius: 100px; margin-bottom: 28px; animation: fadeUp 0.7s ease both; }
+  .dot-pulse { width: 7px; height: 7px; background: var(--blue); border-radius: 50%; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero h1 { font-size: clamp(2.4rem, 4.5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--blue-deep); margin-bottom: 20px; animation: fadeUp 0.7s 0.1s ease both; }
+  .hero h1 em { font-family: 'Lora', serif; font-style: italic; color: var(--blue); font-weight: 600; }
+  .hero h1 .hi { color: var(--yellow); }
+  .hero-desc { font-size: 1.05rem; color: var(--text-mid); line-height: 1.75; max-width: 480px; margin-bottom: 40px; font-weight: 400; animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.7s 0.3s ease both; }
+  .btn-main { background: var(--blue); color: var(--white); font-weight: 700; font-size: 0.92rem; padding: 15px 32px; border-radius: 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s; box-shadow: 0 4px 20px rgba(26,122,191,0.25); }
+  .btn-main:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,122,191,0.35); }
+  .btn-outline { border: 1.5px solid var(--blue); color: var(--blue); font-weight: 600; font-size: 0.92rem; padding: 15px 32px; border-radius: 10px; text-decoration: none; transition: all 0.2s; }
+  .btn-outline:hover { background: rgba(26,122,191,0.06); }
+  .hero-visual { animation: fadeLeft 0.8s 0.2s ease both; }
+  .hero-card-main { background: var(--white); border-radius: 24px; padding: 36px; box-shadow: 0 20px 60px rgba(26,122,191,0.12); border: 1px solid var(--border); margin-bottom: 16px; }
+  .hero-card-main .card-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+  .sun-visual { display: flex; align-items: center; justify-content: center; margin: 16px 0 24px; }
+  .sun-outer { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #ffd740 30%, rgba(245,196,0,0.2) 70%, transparent 100%); display: flex; align-items: center; justify-content: center; animation: sunPulse 3s ease-in-out infinite; font-size: 2.5rem; }
+  @keyframes sunPulse { 0%,100%{ box-shadow: 0 0 0 10px rgba(245,196,0,0.15), 0 0 0 20px rgba(245,196,0,0.07); } 50%{ box-shadow: 0 0 0 18px rgba(245,196,0,0.2), 0 0 0 36px rgba(245,196,0,0.06); } }
+  .mini-stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 8px; }
+  .mini-stat { background: var(--section-alt); border-radius: 12px; padding: 14px; text-align: center; border: 1px solid var(--border); }
+  .mini-stat .mn { font-size: 1.25rem; font-weight: 800; color: var(--blue-dark); display: block; }
+  .mini-stat .ml { font-size: 0.68rem; color: var(--text-light); font-weight: 500; margin-top: 2px; }
+  .hero-cards-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .hero-mini-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(26,122,191,0.07); display: flex; align-items: center; gap: 12px; }
+  .hmc-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--yellow-pale); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .hmc-num { font-size: 1.1rem; font-weight: 800; color: var(--blue-dark); display: block; }
+  .hmc-label { font-size: 0.72rem; color: var(--text-light); }
+
+  /* SHARED */
+  .container { max-width: 1200px; margin: 0 auto; }
+  section { padding: 96px 64px; }
+  .eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: block; }
+  .sec-title { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.025em; color: var(--blue-deep); margin-bottom: 16px; }
+  .sec-sub { font-size: 1rem; color: var(--text-mid); max-width: 500px; line-height: 1.7; }
+
+  /* BENEFITS */
+  .benefits { background: var(--section-alt); }
+  .benefits-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 56px; }
+  .chart-box { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 36px; box-shadow: 0 4px 24px rgba(26,122,191,0.07); }
+  .chart-head { font-size: 0.82rem; font-weight: 700; color: var(--text-mid); margin-bottom: 24px; letter-spacing: 0.03em; }
+  .bar-wrap { display: flex; align-items: flex-end; gap: 5px; height: 150px; }
+  .bc { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; }
+  .bf { background: linear-gradient(180deg, var(--yellow) 0%, rgba(245,196,0,0.3) 100%); border-radius: 4px 4px 0 0; width: 100%; transition: background 0.2s; }
+  .bf:hover { background: linear-gradient(180deg, var(--yellow-light) 0%, var(--yellow) 100%); }
+  .bv { font-size: 0.6rem; font-weight: 700; color: var(--blue); }
+  .bm { font-size: 0.6rem; color: var(--text-light); }
+  .chips { display: flex; gap: 10px; margin-top: 24px; }
+  .chip { flex: 1; background: rgba(26,122,191,0.05); border: 1px solid rgba(26,122,191,0.12); border-radius: 12px; padding: 14px; text-align: center; }
+  .chip .cn { font-size: 1rem; font-weight: 800; color: var(--blue); display: block; }
+  .chip .cl { font-size: 0.68rem; color: var(--text-light); margin-top: 3px; }
+  .benefit-list { display: flex; flex-direction: column; gap: 16px; }
+  .benefit-row { display: flex; gap: 16px; align-items: flex-start; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 24px; transition: all 0.25s; }
+  .benefit-row:hover { border-color: var(--sky-dark); box-shadow: 0 6px 24px rgba(26,122,191,0.1); transform: translateX(4px); }
+  .bi-icon { width: 46px; height: 46px; flex-shrink: 0; background: var(--yellow-pale); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: 1px solid rgba(245,196,0,0.3); }
+  .benefit-row h3 { font-size: 0.95rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 5px; }
+  .benefit-row p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* USP */
+  .usp-cards { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; margin-top: 56px; }
+  .usp-c { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 32px 24px; transition: all 0.25s; position: relative; }
+  .usp-c::after { content: ''; position: absolute; bottom: 0; left: 24px; right: 24px; height: 3px; border-radius: 3px; background: linear-gradient(90deg, var(--blue), var(--yellow)); transform: scaleX(0); transition: transform 0.3s; transform-origin: left; }
+  .usp-c:hover { box-shadow: 0 12px 40px rgba(26,122,191,0.12); transform: translateY(-4px); }
+  .usp-c:hover::after { transform: scaleX(1); }
+  .usp-em { font-size: 2rem; margin-bottom: 16px; display: block; }
+  .usp-c h3 { font-size: 0.92rem; font-weight: 700; color: var(--blue-deep); margin-bottom: 8px; }
+  .usp-c p { font-size: 0.83rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* MODELS */
+  .models { background: var(--section-alt); }
+  .models-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+  .model-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 44px; transition: all 0.25s; }
+  .model-card.featured { border-color: var(--yellow); box-shadow: 0 8px 32px rgba(245,196,0,0.18); position: relative; }
+  .model-card.featured::before { content: 'Most Popular'; position: absolute; top: -13px; left: 32px; background: var(--yellow); color: var(--blue-deep); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 14px; border-radius: 100px; }
+  .model-card:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(26,122,191,0.1); }
+  .model-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 8px; display: block; }
+  .model-card h3 { font-size: 1.4rem; font-weight: 800; color: var(--blue-deep); margin-bottom: 28px; }
+  .md-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .md-row:last-of-type { border-bottom: none; }
+  .md-k { font-size: 0.85rem; color: var(--text-mid); }
+  .md-v { font-size: 0.9rem; font-weight: 700; color: var(--blue-deep); }
+  .md-v.yl { color: var(--blue); }
+  .md-v.gn { color: #2a9d4e; }
+  .tags-wrap { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+  .tag { font-size: 0.75rem; padding: 5px 12px; background: var(--section-alt); border: 1px solid var(--border); border-radius: 100px; color: var(--text-mid); }
+
+  /* ECONOMICS */
+  .econ-wrap { margin-top: 56px; }
+  .econ-table { background: var(--white); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px rgba(26,122,191,0.06); margin-bottom: 24px; }
+  .et-head { display: grid; grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr; padding: 16px 28px; background: var(--blue); color: var(--white); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .et-row { display: grid; grid-template-columns: 2.5fr 1.5fr 1.5fr 1.5fr; padding: 16px 28px; border-bottom: 1px solid var(--border); transition: background 0.15s; font-size: 0.88rem; }
+  .et-row:hover { background: var(--section-alt); }
+  .et-row:last-child { border-bottom: none; }
+  .et-row .label { color: var(--text-mid); font-weight: 500; }
+  .et-row .val { color: var(--blue-deep); font-weight: 600; }
+  .et-row .highlight { color: var(--blue); font-weight: 700; }
+  .et-row .green { color: #2a9d4e; font-weight: 700; }
+  .payback-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+  .pb-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 28px; text-align: center; transition: all 0.2s; }
+  .pb-card:hover { box-shadow: 0 8px 30px rgba(26,122,191,0.1); transform: translateY(-3px); }
+  .pb-card.featured-pb { border-color: #2a9d4e; background: #f4fdf7; }
+  .pb-n { font-size: 2rem; font-weight: 800; color: var(--blue-dark); display: block; margin-bottom: 6px; }
+  .pb-card.featured-pb .pb-n { color: #2a9d4e; }
+  .pb-l { font-size: 0.8rem; color: var(--text-mid); line-height: 1.4; }
+
+  /* TEAM */
+  .team { background: var(--section-alt); }
+  .team-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+  .tc { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 36px 28px; text-align: center; transition: all 0.25s; }
+  .tc:hover { box-shadow: 0 16px 50px rgba(26,122,191,0.1); transform: translateY(-4px); }
+  .tc-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, var(--blue) 0%, var(--sky-dark) 100%); border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; color: var(--white); }
+  .tc-role { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+  .tc-name { font-size: 1.1rem; font-weight: 800; color: var(--blue-deep); margin-bottom: 4px; }
+  .tc-phone { font-size: 0.82rem; color: var(--text-light); margin-bottom: 16px; }
+  .tc-divider { width: 40px; height: 2px; background: linear-gradient(90deg, var(--yellow), var(--blue)); margin: 0 auto 16px; border-radius: 2px; }
+  .tc-bio { font-size: 0.82rem; color: var(--text-mid); line-height: 1.6; }
+
+  /* CLIENTS */
+  .clients-flex { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 48px; }
+  .cl-pill { background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 13px 26px; font-size: 0.88rem; font-weight: 600; color: var(--text-mid); transition: all 0.2s; cursor: default; }
+  .cl-pill:hover { border-color: var(--blue); color: var(--blue); box-shadow: 0 4px 16px rgba(26,122,191,0.1); transform: translateY(-2px); }
+
+  /* REGISTRATION */
+  .reg { background: var(--section-alt); }
+  .reg-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+  .rg { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+  .rg-k { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+  .rg-v { font-size: 0.9rem; font-weight: 700; color: var(--blue-deep); word-break: break-all; }
+
+  /* CONTACT */
+  .contact-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: start; margin-top: 56px; }
+  .contact-info { display: flex; flex-direction: column; gap: 14px; }
+  .ci { background: var(--section-alt); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; display: flex; align-items: center; gap: 14px; transition: all 0.2s; }
+  .ci:hover { border-color: var(--blue); background: var(--white); box-shadow: 0 4px 20px rgba(26,122,191,0.08); }
+  .ci-ic { width: 42px; height: 42px; border-radius: 10px; background: rgba(26,122,191,0.08); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .ci-lbl { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin-bottom: 3px; }
+  .ci-val { font-size: 0.9rem; font-weight: 600; color: var(--blue-deep); }
+  .contact-note { margin-top: 28px; background: var(--yellow-pale); border: 1px solid rgba(245,196,0,0.4); border-radius: 14px; padding: 20px 22px; font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+  .contact-note strong { color: var(--blue-deep); }
+  .form-box { background: var(--white); border: 1px solid var(--border); border-radius: 22px; padding: 44px; box-shadow: 0 8px 40px rgba(26,122,191,0.08); }
+  .form-box h3 { font-size: 1.3rem; font-weight: 800; color: var(--blue-deep); margin-bottom: 28px; }
+  .fg { margin-bottom: 18px; }
+  .fg label { display: block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 7px; }
+  .fg input, .fg textarea, .fg select { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 13px 16px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+  .fg select option { background: var(--white); }
+  .fg input:focus, .fg textarea:focus, .fg select:focus { border-color: var(--blue); }
+  .fg textarea { resize: vertical; min-height: 100px; }
+  .fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .submit { width: 100%; background: var(--blue); color: var(--white); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.95rem; font-weight: 700; border: none; border-radius: 10px; padding: 15px; cursor: pointer; transition: all 0.2s; margin-top: 6px; letter-spacing: 0.01em; box-shadow: 0 4px 20px rgba(26,122,191,0.25); }
+  .submit:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,122,191,0.35); }
+
+  /* FOOTER */
+  footer { background: var(--blue-deep); padding: 40px 64px; display: flex; align-items: center; justify-content: space-between; }
+  .foot-brand { font-size: 1.1rem; font-weight: 800; color: var(--white); }
+  .foot-brand span { color: var(--yellow); }
+  .foot-sub { font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 2px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .foot-links { display: flex; gap: 26px; }
+  .foot-links a { font-size: 0.82rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+  .foot-links a:hover { color: var(--yellow); }
+  .foot-copy { font-size: 0.75rem; color: rgba(255,255,255,0.35); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeLeft { from{opacity:0;transform:translateX(32px)} to{opacity:1;transform:translateX(0)} }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--sky); }
+  ::-webkit-scrollbar-thumb { background: var(--sky-dark); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="#" class="nav-brand">
+    <img src="images/logo.png" alt="AHA Go Green Go Solar" style="height:72px; width:auto; display:block;"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#models">Models</a></li>
+    <li><a href="#economics">Economics</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact" class="nav-btn">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-circle-1"></div>
+  <div class="hero-circle-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><div class="dot-pulse"></div> Hyderabad's Solar Experts</div>
+      <h1>Clean Energy for<br/><em>a Brighter</em><br/><span class="hi">Tomorrow</span></h1>
+      <p class="hero-desc">AHA Solar delivers end-to-end solar power solutions — from design and installation to operations and maintenance. Clean, affordable, and built to last 25+ years.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-main">Get Free Consultation →</a>
+        <a href="#models" class="btn-outline">See Our Models</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="card-label">☀ Solar Performance Overview</div>
+        <div class="sun-visual"><div class="sun-outer">☀</div></div>
+        <div class="mini-stats">
+          <div class="mini-stat"><span class="mn">11L+</span><div class="ml">kWh / MW / yr</div></div>
+          <div class="mini-stat"><span class="mn">25 Yrs</span><div class="ml">Warranty</div></div>
+          <div class="mini-stat"><span class="mn">3 Yrs</span><div class="ml">Payback*</div></div>
+        </div>
+      </div>
+      <div class="hero-cards-row">
+        <div class="hero-mini-card">
+          <div class="hmc-icon">🌿</div>
+          <div><span class="hmc-num">1,200T</span><div class="hmc-label">CO₂ saved per MW/yr</div></div>
+        </div>
+        <div class="hero-mini-card">
+          <div class="hmc-icon">🔁</div>
+          <div><span class="hmc-num">60%</span><div class="hmc-label">Revenue from repeat clients</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="container">
+    <span class="eyebrow reveal">Why Solar Power</span>
+    <div class="sec-title reveal">The Sun Powers You All Year Long</div>
+    <p class="sec-sub reveal">Solar energy is the world's cleanest, most accessible power source — and it requires no fuel except sunshine.</p>
+    <div class="benefits-layout">
+      <div class="chart-box reveal">
+        <div class="chart-head">Monthly Generation Index — Hyderabad</div>
+        <div class="bar-wrap" id="chartBars"></div>
+        <div class="chips">
+          <div class="chip"><span class="cn">11 Lakh</span><div class="cl">kWh per MW per year</div></div>
+          <div class="chip"><span class="cn">1,200T</span><div class="cl">CO₂ reduced / MW</div></div>
+          <div class="chip"><span class="cn">25 Yrs</span><div class="cl">Equipment warranty</div></div>
+        </div>
+      </div>
+      <div class="benefit-list">
+        <div class="benefit-row reveal">
+          <div class="bi-icon">🌿</div>
+          <div><h3>Environmental Gains</h3><p>Solar is the cleanest energy globally — a proven alternative to fossil fuels with a positive environmental impact and dramatically reduced carbon emissions.</p></div>
+        </div>
+        <div class="benefit-row reveal">
+          <div class="bi-icon">⚡</div>
+          <div><h3>Easy Installation</h3><p>From tin sheds to concrete rooftops and flat land — advances in solar technology make installation safe, fast, and accessible for any structure.</p></div>
+        </div>
+        <div class="benefit-row reveal">
+          <div class="bi-icon">🔧</div>
+          <div><h3>Low Maintenance</h3><p>Once installed, your system simply works. Sunshine is your only fuel, and our O&M teams ensure optimal performance year after year.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USP -->
+<section id="usp">
+  <div class="container">
+    <span class="eyebrow reveal">The AHA Difference</span>
+    <div class="sec-title reveal">Why Clients Choose AHA Solar</div>
+    <div class="usp-cards">
+      <div class="usp-c reveal"><span class="usp-em">🏆</span><h3>All Tier-1 Components</h3><p>Not just panels — every component in your system is Tier-1 quality, ensuring peak performance and long-term reliability.</p></div>
+      <div class="usp-c reveal"><span class="usp-em">👷</span><h3>Expert Teams</h3><p>Design, execution, and O&M teams with 17–30+ years of deep solar, civil, and electrical engineering experience.</p></div>
+      <div class="usp-c reveal"><span class="usp-em">📞</span><h3>Proactive Support</h3><p>We reach out before you need to complain. Our monitoring and O&M teams keep your plant running at its best, always.</p></div>
+      <div class="usp-c reveal"><span class="usp-em">🔁</span><h3>60% Repeat Revenue</h3><p>60% of our annual revenue comes from repeat clients — the strongest proof of the trust and satisfaction we deliver.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODELS -->
+<section class="models" id="models">
+  <div class="container">
+    <span class="eyebrow reveal">Investment Models</span>
+    <div class="sec-title reveal">Flexible Solar Solutions for Every Need</div>
+    <p class="sec-sub reveal">Whether you're a homeowner, business, or large industry — AHA Solar has the right model for you.</p>
+    <div class="models-grid">
+      <div class="model-card featured reveal">
+        <span class="model-tag">Ownership Model</span>
+        <h3>Own Your Solar Plant</h3>
+        <div class="md-row"><span class="md-k">Investment (1000 kW+)</span><span class="md-v yl">₹45,000 / kW</span></div>
+        <div class="md-row"><span class="md-k">Annual Electricity Savings</span><span class="md-v gn">₹10,000 / kW</span></div>
+        <div class="md-row"><span class="md-k">Equipment Warranty</span><span class="md-v">25 Years</span></div>
+        <div class="md-row"><span class="md-k">Payback Period</span><span class="md-v">3–5 Years</span></div>
+        <div class="md-row"><span class="md-k">Income Tax Benefit</span><span class="md-v gn">✓ Eligible</span></div>
+        <div class="tags-wrap">
+          <span class="tag">Individual Houses</span><span class="tag">Gated Communities</span>
+          <span class="tag">Commercial Buildings</span><span class="tag">SME & Industries</span>
+          <span class="tag">Schools & Colleges</span>
+        </div>
+      </div>
+      <div class="model-card reveal">
+        <span class="model-tag">Financial Snapshot — 1 MW</span>
+        <h3>The Business Case for Solar</h3>
+        <div class="md-row"><span class="md-k">Grid Tariff Energy Charge</span><span class="md-v">₹7.71 / kWh</span></div>
+        <div class="md-row"><span class="md-k">Monthly Savings</span><span class="md-v yl">₹9,25,200</span></div>
+        <div class="md-row"><span class="md-k">Annual Savings</span><span class="md-v gn">₹1.01 Crore+</span></div>
+        <div class="md-row"><span class="md-k">Accelerated Depreciation</span><span class="md-v">40% @ 34% I.Tax</span></div>
+        <div class="md-row"><span class="md-k">Net Investment After IT Benefit</span><span class="md-v gn">₹3.08 Cr (vs ₹4.5 Cr)</span></div>
+        <p style="margin-top:20px;font-size:0.83rem;color:var(--text-mid);line-height:1.6;">Accelerated depreciation over 5 years significantly reduces your effective investment — making solar one of the smartest capital decisions for businesses today.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECONOMICS -->
+<section id="economics">
+  <div class="container">
+    <span class="eyebrow reveal">Plant Economics</span>
+    <div class="sec-title reveal">1000 kWp Solar Plant — Full Breakdown</div>
+    <div class="econ-wrap">
+      <div class="econ-table reveal">
+        <div class="et-head"><span>Metric</span><span>Value</span><span>With IT Benefit</span><span>Outcome</span></div>
+        <div class="et-row"><span class="label">Basic Investment</span><span class="val">₹4,50,00,000</span><span class="green">₹3,08,89,728</span><span class="green">Save ₹1.41 Cr via IT</span></div>
+        <div class="et-row"><span class="label">GST @ 13.8%</span><span class="val">₹62,10,000</span><span class="val">—</span><span class="val">Total: ₹5,12,10,000</span></div>
+        <div class="et-row"><span class="label">Monthly Generation</span><span class="val">1,20,000 kWh</span><span class="val">—</span><span class="highlight">11 Lakh kWh/year</span></div>
+        <div class="et-row"><span class="label">Monthly Savings</span><span class="highlight">₹9,25,200</span><span class="val">—</span><span class="val">@₹7.71/kWh grid rate</span></div>
+        <div class="et-row"><span class="label">Annual Savings</span><span class="green">₹1,01,77,200</span><span class="val">—</span><span class="val">Consistent & growing</span></div>
+      </div>
+      <div class="payback-3">
+        <div class="pb-card reveal"><span class="pb-n">4.42 Yrs</span><div class="pb-l">Standard Payback Period</div></div>
+        <div class="pb-card featured-pb reveal"><span class="pb-n">3.04 Yrs</span><div class="pb-l">Payback with Income Tax Benefit (Accelerated Depreciation)</div></div>
+        <div class="pb-card reveal"><span class="pb-n">₹1.41 Cr</span><div class="pb-l">IT Savings — 40% Depreciation @ 34% Tax Rate</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="container">
+    <span class="eyebrow reveal">Our Leadership</span>
+    <div class="sec-title reveal">The People Behind Your Solar Success</div>
+    <div class="team-grid">
+      <div class="tc reveal">
+        <div class="tc-avatar">KR</div>
+        <div class="tc-role">Managing Director</div>
+        <div class="tc-name">K. Rajesh Kumar</div>
+        <div class="tc-phone">📞 9160110902</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">Master's in Finance with 30+ years across investment, infrastructure, and solar. Expert in project oversight, documentation, and driving operational efficiency with a focus on quality and timely delivery.</p>
+      </div>
+      <div class="tc reveal">
+        <div class="tc-avatar">GV</div>
+        <div class="tc-role">Operations Head</div>
+        <div class="tc-name">G. Vijay Kumar</div>
+        <div class="tc-phone">📞 9908949422</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">Civil Engineering graduate with 22+ years executing solar, infrastructure, and high-rise projects. Expert in site management, equipment maintenance, safety, and on-time delivery.</p>
+      </div>
+      <div class="tc reveal">
+        <div class="tc-avatar">MK</div>
+        <div class="tc-role">Project Manager</div>
+        <div class="tc-name">M. Kishore Babu</div>
+        <div class="tc-phone">📞 8466858585</div>
+        <div class="tc-divider"></div>
+        <p class="tc-bio">Construction & Technical Specialist with 17+ years in solar execution, civil, electrical, and mechanical projects. Skilled in site supervision, reporting, and ensuring quality and timely completion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow reveal">Our Clients</span>
+    <div class="sec-title reveal">Trusted by Leading Organizations</div>
+    <p class="sec-sub reveal" style="margin:0 auto;">From government bodies to large enterprises — our clients rely on AHA for quality, reliability, and performance.</p>
+    <div class="clients-flex reveal">
+      <div class="cl-pill">🏢 Lodha Group</div>
+      <div class="cl-pill">🏛️ Government of Telangana</div>
+      <div class="cl-pill">🏗️ M+W Group</div>
+      <div class="cl-pill">🏘️ Juvarnabhoomi</div>
+      <div class="cl-pill">⚡ MEIL</div>
+      <div class="cl-pill">🔧 PnU Engineering</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGISTRATION -->
+<section class="reg">
+  <div class="container">
+    <span class="eyebrow reveal">Verified & Compliant</span>
+    <div class="sec-title reveal">Registration Details</div>
+    <div class="reg-grid">
+      <div class="rg reveal"><div class="rg-k">Incorporation Date</div><div class="rg-v">27 January 2023</div></div>
+      <div class="rg reveal"><div class="rg-k">Firm Number</div><div class="rg-v">102 of 2023</div></div>
+      <div class="rg reveal"><div class="rg-k">GSTN</div><div class="rg-v">36ACAFA8932F1ZI</div></div>
+      <div class="rg reveal"><div class="rg-k">PAN / Firm No</div><div class="rg-v">ACAFA8932F</div></div>
+      <div class="rg reveal"><div class="rg-k">UDYAM (MSME)</div><div class="rg-v">UDYAM-TS-02-0261297</div></div>
+      <div class="rg reveal"><div class="rg-k">Bank IFSC</div><div class="rg-v">HDFC0004326</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <span class="eyebrow reveal">Get In Touch</span>
+    <div class="sec-title reveal">Start Your Solar Journey Today</div>
+    <div class="contact-inner">
+      <div>
+        <div class="contact-info">
+          <div class="ci reveal"><div class="ci-ic">📞</div><div><div class="ci-lbl">Phone</div><div class="ci-val">+91 9347037606</div></div></div>
+          <div class="ci reveal"><div class="ci-ic">✉️</div><div><div class="ci-lbl">Email</div><div class="ci-val">aharenewable@gmail.com</div></div></div>
+          <div class="ci reveal"><div class="ci-ic">📍</div><div><div class="ci-lbl">Office Address</div><div class="ci-val" style="font-size:0.85rem;line-height:1.5;">D.No. 1-8-430/27, Bhavani Nilayam,<br/>Uma Gardens, Chikkadapally,<br/>Hyderabad – 500020</div></div></div>
+        </div>
+        <div class="contact-note reveal">
+          <strong>Incorporated January 2023.</strong> AHA Renewable Energy is a registered MSME serving clients across Telangana and Andhra Pradesh with end-to-end solar solutions for homes, businesses, and industries.
+        </div>
+      </div>
+      <div class="form-box reveal">
+        <h3>Request a Free Quote</h3>
+        <div class="fg-row">
+          <div class="fg"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+          <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXXXXXXX"/></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@company.com"/></div>
+        <div class="fg"><label>Installation Type</label>
+          <select>
+            <option value="">Select type...</option>
+            <option>Individual House</option>
+            <option>Gated Community</option>
+            <option>Commercial Building</option>
+            <option>SME / Industry</option>
+            <option>School / College</option>
+            <option>Large Industrial Plant (1 MW+)</option>
+          </select>
+        </div>
+        <div class="fg"><label>Capacity Required</label><input type="text" placeholder="e.g. 100 kW, 500 kW, 1 MW..."/></div>
+        <div class="fg"><label>Message</label><textarea placeholder="Tell us about your energy requirements..."></textarea></div>
+        <button class="submit" id="submitBtn">Send My Request →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <img src="aha-logo.jpeg" alt="AHA Go Green Go Solar" style="height:80px; width:auto; display:block;"/>
+  </div>
+  <div class="foot-links">
+    <a href="#benefits">Benefits</a>
+    <a href="#models">Models</a>
+    <a href="#economics">Economics</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="foot-copy">© 2025 AHA Renewable Energy. All rights reserved.</div>
+</footer>
+
+<script>
+  // Bar chart
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const vals = [134,129,143,134,134,103,88,91,110,130,126,129];
+  const max = Math.max(...vals);
+  const wrap = document.getElementById('chartBars');
+  months.forEach((m,i) => {
+    const pct = (vals[i]/max*100).toFixed(0);
+    wrap.innerHTML += `<div class="bc"><span class="bv">${vals[i]}</span><div class="bf" style="height:${pct}%"></div><span class="bm">${m}</span></div>`;
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => {
+      if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*50); obs.unobserve(e.target); }
+    });
+  }, {threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
+
+  // Nav shadow
+  window.addEventListener('scroll',()=>{ document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>30); });
+
+  // Form submit
+  document.getElementById('submitBtn').addEventListener('click',function(){
+    this.textContent='✓ Request sent! We will call you soon.';
+    this.style.background='#2a9d4e';
+    setTimeout(()=>{ this.textContent='Send My Request →'; this.style.background=''; },3500);
+  });
+</script>
+</body>
+</html>
